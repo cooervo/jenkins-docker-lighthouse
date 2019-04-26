@@ -1,7 +1,6 @@
 FROM femtopixel/google-chrome-headless:71.0.3578.98-amd64
 
 # Run with:
-pwd
 # sudo docker run --rm --mount type=bind,source="$(pwd)"/target,target=/app -v report:/home/chrome/reports --cap-add=SYS_ADMIN femtopixel/google-lighthouse https://web.de/magazine/ --output-path lighthouse-report.html
 # Inspect with:
 # sudo docker inspect femtopixel/google-lighthouse
@@ -30,8 +29,8 @@ RUN rm -rf /var/lib/apt/lists/* && \
   mkdir -p /home/chrome/reports && chown -R chrome:chrome /home/chrome
 
 # some place we can mount and view lighthouse reports
-#VOLUME /home/chrome/reports
-#WORKDIR /home/chrome/reports
+VOLUME /home/chrome/reports
+WORKDIR /home/chrome/reports
 # mount docker into the jenkins workspace
 COPY entrypoint.sh /usr/bin/entrypoint
 
@@ -40,7 +39,7 @@ USER chrome
 
 ENV CHROME_FLAGS="--headless --disable-gpu --no-sandbox"
 
-#VOLUME /home/chrome/reports
+VOLUME /home/chrome/reports
 
 # Drop to cli
 ENTRYPOINT ["entrypoint"]
