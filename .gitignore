@@ -1,0 +1,4 @@
+.build
+qemu-*-static
+*.yaml
+.idea/
